@@ -1,7 +1,6 @@
 package com.javaacademy.Cinema.repository;
 
 import com.javaacademy.Cinema.entity.Place;
-import com.javaacademy.Cinema.entity.Session;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,12 +8,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class PlaceRepository {
     private final JdbcTemplate jdbcTemplate;
+
+    public List<Place> getAllPlace() {
+        String sql = "select * from place";
+        return jdbcTemplate.query(sql, this::mapToPlace);
+    }
 
     public Optional<Place> findById(Integer id) {
         String sql = "select * from place where id = ?";
@@ -26,12 +31,10 @@ public class PlaceRepository {
     }
 
     @SneakyThrows
-    private Place mapToPlace(ResultSet rs, int RowNum) {
+    private Place mapToPlace(ResultSet rs, int rowNum) {
         Place place = new Place();
         place.setId(rs.getInt("id"));
         place.setName(rs.getString("name"));
         return place;
     }
-
-
 }

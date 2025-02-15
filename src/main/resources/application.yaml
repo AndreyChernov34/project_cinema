@@ -4,3 +4,10 @@ spring:
     username: postgres
     password: 12345
     driver: org.postgresql.Driver
+    initialization-mode: always
+    schema: classpath:init.sql
+    data: classpath:fill-data.sql
+admin:
+  token: secretadmin123
+server:
+  port: 8081

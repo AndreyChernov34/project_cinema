@@ -8,12 +8,30 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class MovieRepository {
     private final JdbcTemplate jdbcTemplate;
+
+    public Movie createMovie(Movie movie) {
+        String sql = "insert into movie (name, description) values (?, ?) returning id";
+        Integer idMovie = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                movie.getName(),
+                movie.getDescription()
+        );
+        movie.setId(idMovie);
+        return movie;
+    }
+
+    public List<Movie> getAllMovie() {
+        String sql = "select * from movie";
+        return jdbcTemplate.query(sql, this::mapToMovie);
+    }
 
     public Optional<Movie> findById(Integer id) {
         String sql = "select * from movie where id = ?";
@@ -25,7 +43,7 @@ public class MovieRepository {
     }
 
     @SneakyThrows
-    private Movie mapToMovie(ResultSet rs, int RowNum) {
+    private Movie mapToMovie(ResultSet rs, int rowNum) {
         Movie movie = new Movie();
         movie.setId(rs.getInt("id"));
         movie.setName(rs.getString("name"));
