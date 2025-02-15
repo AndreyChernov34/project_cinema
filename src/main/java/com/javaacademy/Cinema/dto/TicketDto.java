@@ -9,5 +9,4 @@ public class TicketDto {
     private Integer sessionId;
     @JsonProperty("place_name")
     private String placeName;
-
 }
