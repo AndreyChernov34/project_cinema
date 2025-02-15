@@ -2,12 +2,7 @@ package com.javaacademy.Cinema;
 
 import com.javaacademy.Cinema.dto.MovieDto;
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -33,7 +27,7 @@ public class MovieControllerTest {
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
-        log.info("port " +  port);
+        log.info("port " + port);
         movieDtoTest = MovieDto.builder()
                 .name("TestName1")
                 .description("Description movie in Test1")

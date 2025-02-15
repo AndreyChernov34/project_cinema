@@ -5,11 +5,7 @@ import com.javaacademy.Cinema.dto.SessionDto;
 import com.javaacademy.Cinema.entity.Movie;
 import com.javaacademy.Cinema.entity.Session;
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -54,7 +49,7 @@ public class SessionControllerTest {
                 .description(movieTest.getDescription())
                 .build();
         sessionDtoTest = SessionDto.builder()
-                .datetime(LocalDateTime.of(2025,02,20,12, 0,0 ))
+                .datetime(LocalDateTime.of(2025, 02, 20, 12, 0, 0))
                 .price(BigDecimal.valueOf(500))
                 .idMovie(movieTest.getId())
                 .build();

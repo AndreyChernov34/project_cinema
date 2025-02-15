@@ -17,6 +17,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDateTime;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -65,24 +67,19 @@ public class TicketControllerTest {
 
     @Test
     public void PayTicketSuccessTest() {
-        TicketDto ticketDto = new TicketDto();
-        ticketDto.setPlaceName("A1");
-        ticketDto.setSessionId(1);
-        TicketResponseDto ticketResponseDto = TicketResponseDto.builder()
-                .movieName("Терминатор")
-                .placeNname("A1")
-                .ticketId(1)
-                .dateTime(LocalDateTime.of(2025, 2, 2, 12, 0))
-                .build();
-
-        when(ticketService.payTicket(any(TicketDto.class))).thenReturn(ticketResponseDto);
+        String ticketDtoJson = "{ \"sessionId\": 1, \"placeId\": 15 }";
 
         RestAssured.given()
                 .contentType("application/json")
-                .body(ticketDto)
+                .body(ticketDtoJson)
                 .when()
                 .post("/ticket/booking")
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .body("id", notNullValue())
+                .body("session_id", equalTo(1))
+                .body("place_id", equalTo(1))
+                .body("isPaid", equalTo(true));
+
     }
 }
