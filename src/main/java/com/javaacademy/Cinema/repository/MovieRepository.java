@@ -44,10 +44,12 @@ public class MovieRepository {
 
     @SneakyThrows
     private Movie mapToMovie(ResultSet rs, int rowNum) {
-        Movie movie = new Movie();
-        movie.setId(rs.getInt("id"));
-        movie.setName(rs.getString("name"));
-        movie.setDescription(rs.getString("description"));
+        Movie movie = Movie.builder()
+                .id(rs.getInt("id"))
+                .name(rs.getString("name"))
+                .description(rs.getString("description"))
+                .build();
+
         return movie;
     }
 }

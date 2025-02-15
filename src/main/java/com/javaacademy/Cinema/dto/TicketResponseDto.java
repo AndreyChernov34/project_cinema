@@ -13,7 +13,7 @@ public class TicketResponseDto {
     private Integer ticketId;
     @JsonProperty("place_name")
     private String placeNname;
-    @JsonProperty("movie_namee")
+    @JsonProperty("movie_name")
     private String movieName;
     @JsonProperty("date")
     private LocalDateTime dateTime;

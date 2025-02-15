@@ -32,8 +32,9 @@ public class MovieController {
 
     @PostMapping
     @Operation(summary = "Создание нового фильма")
-    public ResponseEntity<Movie> createMovie(@RequestHeader("user-token") String token,
-                                             @RequestBody MovieDto movieDto) {
+    public ResponseEntity<Movie> createMovie(
+            @RequestHeader(value = "user-token", required = false, defaultValue = "") String token,
+            @RequestBody MovieDto movieDto) {
         if ((!token.equals(admintoken)) || (token == null) || (token.isEmpty())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

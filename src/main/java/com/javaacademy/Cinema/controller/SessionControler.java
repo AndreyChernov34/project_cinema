@@ -30,8 +30,9 @@ public class SessionControler {
 
     @PostMapping("/session")
     @Operation(summary = "Создание сеанса")
-    public ResponseEntity<Session> createSession(@RequestHeader("user-token") String token,
-                                                 @RequestBody SessionDto sessionDto) {
+    public ResponseEntity<Session> createSession(
+            @RequestHeader(value = "user-token", required = false, defaultValue = "") String token,
+            @RequestBody SessionDto sessionDto) {
         if ((!token.equals(admintoken)) || (token == null) || (token.isEmpty())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

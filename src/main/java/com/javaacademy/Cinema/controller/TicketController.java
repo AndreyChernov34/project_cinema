@@ -29,7 +29,7 @@ public class TicketController {
     @GetMapping("/ticket/saled")
     @Operation(summary = "Получение всех оплаченных билетов")
     public ResponseEntity<List<Ticket>> getAllPayTicket(
-            @RequestHeader(value = "user-token", required = true) String token) {
+            @RequestHeader(value = "user-token", required = false, defaultValue = "") String token) {
         if ((!token.equals(admintoken)) || (token == null) || (token.isEmpty())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

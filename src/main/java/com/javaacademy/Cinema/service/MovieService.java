@@ -15,12 +15,12 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public Movie createMovie(MovieDto movieDto) {
-        Movie movie = new Movie();
-        movie.setName(movieDto.getName());
-        movie.setDescription(movieDto.getDescription());
+        Movie movie = Movie.builder()
+                .name(movieDto.getName())
+                .description(movieDto.getDescription())
+                .build();
         return movieRepository.createMovie(movie);
     }
-
 
     public List<MovieDto> getMovie() {
         List<Movie> movieList = movieRepository.getAllMovie();
